@@ -1,29 +1,67 @@
-## Flaskr an example application written in Python/Flask
+# Flaskr example application written in Python/Flask with Helm chart
 
-![Flask plus Codefresh](docker-flask-codefresh.jpg)
+[Flask plus Codefresh](docker-flask-codefresh.jpg)
 
-Original source code from https://github.com/pallets/flask/tree/master/examples/tutorial
+Original source code from: https://github.com/pallets/flask/tree/master/examples/tutorial
 
-## Docker instructions
+## To use this project with GitOps/Argo CD
 
-To create a docker image execute: 
+This is a python/flaskr application including a Helm chart.
 
-`docker build . -t flaskr`
+#### Prerequisites
 
-To run the docker image execute:
+- Access to a Kubernetes cluster
+- Installing and configuring [Helm](https://helm.sh). Please refer to
+Helm's [documentation](https://helm.sh/docs) to get started.
 
-`docker run -p 5000:5000 flaskr` and visit with your browser http://localhost:5000
+#### Helm commands
 
-To run unit tests inside the container execute:
+Once Helm has been set up correctly, add the repo as follows:
 
-`docker run -it flaskr /bin/sh`
+`helm repo add argo https://argoproj.github.io/argo-helm`
 
-and then in the new command promt run
+"argo" has been added to your repositories
 
-`pip install pytest && pytest`
+`helm install my-release argo/argo-cd`
 
-## To use this project in Codefresh
+Confirm the new release "my-release" has been created. This is done by executing helm list (or helm ls) function which will show you a list of all deployed releases:
 
-There is also a [codefresh.yml](codefresh.yml) for easy usage with the [Codefresh](codefresh.io) CI/CD platform.
+`helm list`
 
-More details can be found in [Codefresh documentation](https://codefresh.io/docs/docs/getting-started/create-a-basic-pipeline/)
+If you need to uninstall this release:
+
+`helm uninstall my-release`
+
+Now that the Helm chart has been released, you can now deploy it with Argo CD.
+
+#### Install Argo CD
+
+First, you need to install Argo and in order to do this, please follow [this tutorial.](https://argoproj.github.io/argo-cd/getting_started/)
+
+Once logged into Argo CD, navigate to 'New App' on the left hand side of the UI. Then add the following:
+
+#### General:
+
+- Application Name: helm-gitops-example
+- Project: default
+
+#### Source:
+
+- Repository URL/Git: this GitHub repository URL
+- Branches: main
+- Path: charts/python
+
+#### Destinatin
+
+- Cluster URL: select your cluster URL you are using
+- Namespace: default
+
+Then, click Create. You have now created your Argo application and it will read out all the parameters, and also read the source Kubernetes manifests. The application will be OutOfSync state since the application has yet to be deployed, and no Kubernetes resources have been created.
+
+#### Synchronize the application manifests and deploy the Argo application
+
+Initially the application is in OutOfSync state since the application has yet to be deployed, and no Kubernetes resources have been created. To synchronize/deploy the Argo app, chose the tile and then select SYNC. This will provide you options of what you want to synchronize.
+Select the default options and synchronize all manifests. Once its deployed, you will see the resources deployed in the UI.
+
+#### Access the Argo application outside Kubernetes cluster
+
