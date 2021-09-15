@@ -38,7 +38,7 @@ Now that the Helm chart has been released, you can now deploy it with Argo CD.
 
 First, you need to install Argo and in order to do this, please follow [this tutorial.](https://argoproj.github.io/argo-cd/getting_started/)
 
-Once logged into Argo CD, navigate to 'New App' on the left hand side of the UI. Then add the following:
+Once logged into Argo CD, navigate to +NEW APP on the left hand side of the UI. Then add the following to create the application:
 
 #### General:
 
