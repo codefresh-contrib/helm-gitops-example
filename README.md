@@ -56,7 +56,7 @@ Once logged into Argo CD, navigate to 'New App' on the left hand side of the UI.
 - Cluster URL: select your cluster URL you are using
 - Namespace: default
 
-Then, click Create. You have now created your Argo application and it will read out all the parameters, and also read the source Kubernetes manifests. The application will be OutOfSync state since the application has yet to be deployed, and no Kubernetes resources have been created.
+Then, click CREATE. You have now created your Argo application and it will read out all the parameters, and also read the source Kubernetes manifests. The application will be OutOfSync state since the application has yet to be deployed, and no Kubernetes resources have been created.
 
 #### Synchronize the application manifests and deploy the Argo application
 
@@ -65,3 +65,6 @@ Select the default options and synchronize all manifests. Once its deployed, you
 
 #### Access the Argo application outside Kubernetes cluster
 
+Within this application the values.yaml file is derived of parameters from which are the same path as the Helm chart. You can access this by clicking on your new application in the Argo UI and clicking on the PARAMETERS tab. Make sure your values.yaml file is chosen for the VALUES FILES field. Within this file includes the service port `5000` value inside the application configuration.
+
+Point the browser to http://localhost:5000 and view the application.
