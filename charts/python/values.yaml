@@ -4,7 +4,7 @@
 replicaCount: 1
 image:
   pullPolicy: IfNotPresent
-  repository: r.cfcr.io/kostis-codefresh/kostis-codefresh/python-flask-sampleapp
+  repository: docker.io/hseligson/helm-gitops-example:v1.0.1
   tag: master
 service:
   name: python

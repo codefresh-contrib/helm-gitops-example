@@ -6,7 +6,7 @@ Original source code from: https://github.com/pallets/flask/tree/master/examples
 
 ## To use this project with GitOps/Argo CD
 
-This is a python/flaskr application including a Helm chart.
+This is a python/flaskr application including a Helm chart. 
 
 #### Prerequisites
 
