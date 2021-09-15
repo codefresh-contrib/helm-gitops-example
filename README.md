@@ -1,4 +1,4 @@
-# Flaskr example application written in Python/Flask with Helm chart
+# Flaskr example application written in Python/Flask with Helm chart and GitOps
 
 [Flask plus Codefresh](docker-flask-codefresh.jpg)
 
