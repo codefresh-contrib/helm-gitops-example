@@ -30,9 +30,9 @@ Now that the Helm chart has been released, you can now deploy it with Argo CD.
 
 #### Install Argo CD
 
-First, you need to install Argo and in order to do this, please follow [this tutorial.](https://argoproj.github.io/argo-cd/getting_started/)
+First, you need to install Argo and to do this, please follow [this tutorial.](https://argoproj.github.io/argo-cd/getting_started/)
 
-Once logged into Argo CD and accessed the UI, navigate to +NEW APP on the left hand side of the UI. Then add the following to create the application:
+Once logged into Argo CD and accessed the UI, navigate to +NEW APP on the left-hand side of the UI. Then add the following to create the application:
 
 #### General:
 
@@ -50,9 +50,9 @@ Once logged into Argo CD and accessed the UI, navigate to +NEW APP on the left h
 
 ![Argo App Source Section](argo-source.jpg)
 
-#### Destinatin
+#### Destination
 
-- Cluster URL: select your cluster URL you are using
+- Cluster URL: select the cluster URL you are using
 - Namespace: default
 
 ![Argo App Destination Section](argo-destination.jpg)
@@ -61,10 +61,10 @@ Then, click CREATE. You have now created your Argo application and it will read 
 
 #### Synchronize the application manifests and deploy the Argo application
 
-Initially the application is in OutOfSync state since the application has yet to be deployed, and no Kubernetes resources have been created. To synchronize/deploy the Argo app, choose the tile and then select SYNC. This will provide you options of what you want to synchronize.
-Select the default options and synchronize all manifests. Once its deployed, you will see the resources deployed in the UI and a Healthy status.
+Initially, the application is in OutOfSync state since the application has yet to be deployed, and no Kubernetes resources have been created. To synchronize/deploy the Argo app, choose the tile and then select SYNC. This will provide you options of what you want to synchronize.
+Select the default options and synchronize all manifests. Once it's deployed, you will see the resources deployed in the UI and a Healthy status.
 
-#### Access the Argo application outside Kubernetes cluster
+#### Access the Argo application outside the Kubernetes cluster
 
 Within this application the values.yaml file is derived of parameters from which are the same path as the Helm chart. You can access this by clicking on your new application in the Argo UI and clicking on the PARAMETERS tab. Make sure your values.yaml file is chosen for the VALUES FILES field, this can be done by clicking EDIT and choosing the file within the field. Within the values.yaml includes the service port `5000` value inside the application configuration.
 
@@ -78,13 +78,13 @@ Point the browser to http://localhost:5000 and view the new Argo application.
 
 #### Using the Argo CD CLI
 
-Now that you've been able to view all the components within the Argo CD UI, like deployment, service, replicaset, pod - let's connect to Argo CD with the CLI.
+Now that you've been able to view all the components within the Argo CD UI, like deployment, service, replica set, pod - let's connect to Argo CD with the CLI.
 
-Login using the CLI:
+Log in using the CLI:
 
 `argocd login localhost:8080 --username admin --password <same_password_used_in_ui>`
 
-You might receieve an error about the server certificate, in this case it would be ok to proceed by typing "y". Argo CD generates it's own certificate and we can test that we are connected by listing our Argo apps:
+You might receive an error about the server certificate, in this case, it would be ok to proceed by typing "y". Argo CD generates its own certificate and we can test that we are connected by listing our Argo apps:
 
 `argocd app list`
 
@@ -92,11 +92,11 @@ You should now see the "helm-gitops-example" Argo application.
 
 #### Application History
 
-In case you need to rollback this application, Argo has similar capabilities as Helm in the sense that you can rollback the application to a previous deployed version by the History ID. First, you need access to the application deployment history:
+In case you need to rollback this application, Argo has similar capabilities as Helm in the sense that you can rollback the application to a previously deployed version by the History ID. First, you need access to the application deployment history:
 
 `argocd app history helm-gitops-example`
 
-The response should return the application history, including an ID, date, and branch that any revision was made on the application. You can then use the ID to rollback the application to a previous deployed version:
+The response should return the application history, including an ID, date, and branch that any revision was made on the application. You can then use the ID to rollback the application to a specific deployed version:
 
 `argocd app history helm-gitops-example <application_history_id>`
 
