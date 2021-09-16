@@ -65,6 +65,15 @@ Within this application the values.yaml file is derived of parameters from which
 
 Since we're using the service type 'ClusterIP' within the values.yaml, execute the function to access the port:
 
-`kubectl port-forward svc/helm-gitops-example-python 5000:80`
+`kubectl port-forward svc/helm-gitops-example 5000:80`
 
-Point the browser to http://localhost:5000 and view the application. 
+Point the browser to http://localhost:5000 and view the new Argo application.
+
+#### Using the ArgoCD CLI
+- app list
+-history
+In case you need to rollback this application, Argo has similar capabilities as Helm in the sense that you can rollback the application to a previous deployed version by the History ID. First, you need access to the application deployment history:
+
+`argocd app history helm-gitops-example
+
+-rollback
