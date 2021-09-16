@@ -16,7 +16,7 @@ Once Helm has been set up correctly, add the repo as follows:
 
 "argo" has been added to your repositories
 
-`helm install my-release argo/argo-cd --namespace foo`
+`helm install my-release argo/argo-cd --namespace default`
 
 Confirm the new release "my-release" has been created. This is done by executing helm list (or helm ls) function which will show you a list of all deployed releases:
 
@@ -66,6 +66,8 @@ Since we're using the service type 'ClusterIP' within the values.yaml, execute t
 `kubectl port-forward svc/helm-gitops-example 5000:80`
 
 Point the browser to http://localhost:5000 and view the new Argo application.
+
+![Argo Application](helm-gitops-argo-ui.jpg)
 
 #### Using the Argo CD CLI
 
