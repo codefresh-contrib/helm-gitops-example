@@ -22,11 +22,11 @@ Once Helm has been set up correctly, add the repo as follows:
 
 "argo" has been added to your repositories
 
-`helm install my-release argo/argo-cd`
+`helm install my-release argo/argo-cd --namespace foo`
 
 Confirm the new release "my-release" has been created. This is done by executing helm list (or helm ls) function which will show you a list of all deployed releases:
 
-`helm list`
+`helm list --namespace foo`
 
 If you need to uninstall this release:
 
@@ -61,14 +61,14 @@ Then, click CREATE. You have now created your Argo application and it will read 
 #### Synchronize the application manifests and deploy the Argo application
 
 Initially the application is in OutOfSync state since the application has yet to be deployed, and no Kubernetes resources have been created. To synchronize/deploy the Argo app, chose the tile and then select SYNC. This will provide you options of what you want to synchronize.
-Select the default options and synchronize all manifests. Once its deployed, you will see the resources deployed in the UI.
+Select the default options and synchronize all manifests. Once its deployed, you will see the resources deployed in the UI and a Healthy status.
 
 #### Access the Argo application outside Kubernetes cluster
 
-Within this application the values.yaml file is derived of parameters from which are the same path as the Helm chart. You can access this by clicking on your new application in the Argo UI and clicking on the PARAMETERS tab. Make sure your values.yaml file is chosen for the VALUES FILES field. Within this file includes the service port `5000` value inside the application configuration.
+Within this application the values.yaml file is derived of parameters from which are the same path as the Helm chart. You can access this by clicking on your new application in the Argo UI and clicking on the PARAMETERS tab. Make sure your values.yaml file is chosen for the VALUES FILES field, this can be done by clicking EDIT and choosing the file within the field. Within the values.yaml includes the service port `5000` value inside the application configuration.
 
-Since we're using the service type 'ClusterIP' within the values.yaml execute the function:
+Since we're using the service type 'ClusterIP' within the values.yaml, execute the function to access the port:
 
 `kubectl port-forward svc/helm-gitops-example-python 5000:80`
 
-Point the browser to http://localhost:5000 and view the application.
+Point the browser to http://localhost:5000 and view the application. 
