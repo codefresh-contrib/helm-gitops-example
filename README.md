@@ -67,4 +67,8 @@ Select the default options and synchronize all manifests. Once its deployed, you
 
 Within this application the values.yaml file is derived of parameters from which are the same path as the Helm chart. You can access this by clicking on your new application in the Argo UI and clicking on the PARAMETERS tab. Make sure your values.yaml file is chosen for the VALUES FILES field. Within this file includes the service port `5000` value inside the application configuration.
 
+Since we're using the service type 'ClusterIP' within the values.yaml execute the function:
+
+`kubectl port-forward svc/helm-gitops-example-python 5000:80`
+
 Point the browser to http://localhost:5000 and view the application.
