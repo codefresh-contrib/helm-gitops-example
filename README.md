@@ -1,12 +1,8 @@
-# Flaskr example application written in Python/Flask with Helm chart and GitOps
-
-[Flask plus Codefresh](docker-flask-codefresh.jpg)
-
-Original source code from: https://github.com/pallets/flask/tree/master/examples/tutorial
+# Helm chart and GitOps example
 
 ## To use this project with GitOps/Argo CD
 
-This is a python/flaskr application including a Helm chart. 
+This is an application example that includes a Helm chart. 
 
 #### Prerequisites
 
