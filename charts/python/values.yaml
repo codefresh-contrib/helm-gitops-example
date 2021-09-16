@@ -4,8 +4,8 @@
 replicaCount: 1
 image:
   pullPolicy: IfNotPresent
-  repository: docker.io/hseligson/helm-gitops-example:v1.0.1
-  tag: master
+  repository: docker.io/hseligson/helm-gitops-example
+  tag: v1.0.1
 service:
   name: python
   type: LoadBalancer
