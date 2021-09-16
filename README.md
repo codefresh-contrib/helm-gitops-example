@@ -38,6 +38,9 @@ Once logged into Argo CD and accessed the UI, navigate to +NEW APP on the left h
 
 - Application Name: helm-gitops-example
 - Project: default
+- Sync Policy: Automatic
+
+![Argo App General Section](argo-general.jpg)
 
 #### Source:
 
@@ -45,10 +48,14 @@ Once logged into Argo CD and accessed the UI, navigate to +NEW APP on the left h
 - Branches: main
 - Path: charts/python
 
+![Argo App Source Section](argo-source.jpg)
+
 #### Destinatin
 
 - Cluster URL: select your cluster URL you are using
 - Namespace: default
+
+![Argo App Destination Section](argo-destination.jpg)
 
 Then, click CREATE. You have now created your Argo application and it will read out all the parameters, and also read the source Kubernetes manifests. The application will be OutOfSync state since the application has yet to be deployed, and no Kubernetes resources have been created.
 
