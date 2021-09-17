@@ -9,7 +9,6 @@ This is an example application including a Helm chart. We'll explain 2 ways to i
 - Install and configure Argo CD. Please refer to Argo's [documentation](https://argoproj.github.io/argo-cd/getting_started/) to get started.
 
 After you create a cluster and have access to it, this application's structure includes:
-- /Dockerfile: This Dockerfile is used to build the container image.
 - /charts/python: The Helm chart used to deploy the application.
 
 #### Part 1: Installing the application with Helm and deploy locally
@@ -26,13 +25,14 @@ Then, install the app as a Helm chart:
 
 You should see a similar output:
 
-`NAME: helm-demo
+```NAME: helm-demo
 LAST DEPLOYED: Fri Sep 17 12:41:31 2021
 NAMESPACE: default
 STATUS: deployed
 REVISION: 1
 TEST SUITE: None
-NOTES:`
+NOTES:
+```
 
 The chart install performs the Kubernetes deployment and service creation of the application. The chart is essentially a collection of files used to describe a set of Kubernetes resources and Helm manages the creation of these resources. In order to confirm the deployment, execute the following:
 
