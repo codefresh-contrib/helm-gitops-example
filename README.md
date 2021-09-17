@@ -1,38 +1,66 @@
 # Applied GitOps with Argo CD and Helm
 
-This is a demo application including a Helm chart with GitOps. 
+This is an example application including a Helm chart. We'll explain 2 ways to install this application in the cluster and deploy using both Helm and Argo CD.
 
-#### Prerequisites
+#### Prerequisites:
 
 - Access to a Kubernetes cluster
-- Installing and configuring [Helm](https://helm.sh). Please refer to
-Helm's [documentation](https://helm.sh/docs) to get started.
+- Install and configure [Helm](https://helm.sh). Please refer to Helm's [documentation](https://helm.sh/docs) to get started.
+- Install and configure Argo CD. Please refer to Argo's [documentation](https://argoproj.github.io/argo-cd/getting_started/) to get started.
 
-#### Helm commands
+After you create a cluster and have access to it, this application's structure includes:
+- /Dockerfile: This Dockerfile is used to build the container image.
+- /charts/python: The Helm chart used to deploy the application.
 
-Once Helm has been set up correctly, add the repo as follows:
+#### Part 1: Installing the application with Helm and deploy locally
 
-`helm repo add argo https://argoproj.github.io/argo-helm`
+We will install and deploy this application by using Helm. The Helm chart already exists within this application in the folder charts/python, so we don't need to create or add a chart. Start by cloning the repository to your local environment to get the files:
 
-"argo" has been added to your repositories
+`git clone https://github.com/codefresh-contrib/helm-gitops-example`
 
-`helm install my-release argo/argo-cd --namespace default`
+Then, install the app as a Helm chart:
 
-Confirm the new release "my-release" has been created. This is done by executing helm list (or helm ls) function which will show you a list of all deployed releases:
+`cd helm-gitops-example/charts`
+
+`helm install helm-demo ./python/ --namespace default`
+
+You should see a similar output:
+
+`NAME: helm-demo
+LAST DEPLOYED: Fri Sep 17 12:41:31 2021
+NAMESPACE: default
+STATUS: deployed
+REVISION: 1
+TEST SUITE: None
+NOTES:`
+
+The chart install performs the Kubernetes deployment and service creation of the application. The chart is essentially a collection of files used to describe a set of Kubernetes resources and Helm manages the creation of these resources. In order to confirm the deployment, execute the following:
 
 `helm list --namespace default`
 
-If you need to uninstall this release:
+This will show you a list of all deployed releases. If you need to uninstall this release:
 
-`helm uninstall my-release`
+`helm uninstall helm-demo`
 
-Now that the Helm chart has been released, you can now deploy it with Argo CD.
+Now that the Helm chart has been released, you can execute rollbacks incase there are any issues. First, run the history command to identify a revision ID:
 
-#### Install Argo CD
+`helm history helm-demo`
 
-First, you need to install Argo and to do this, please follow [this tutorial.](https://argoproj.github.io/argo-cd/getting_started/)
+Next, to execute a rollback, you can execute the command:
 
-Once logged into Argo CD and accessed the UI, navigate to +NEW APP on the left-hand side of the UI. Then add the following to create the application:
+`helm rollback helm-demo <revision_id>`
+
+Access the application by using a port-forward command to a local port:
+
+***needtofixnotessectionwithportinstructions
+
+Congrats! You have now installed and deployed an application using Helm.
+
+#### Part 2: Installing the chart with Argo CD UI
+
+Now, that you've installed and deployed the application with Helm, let's review how to do the same with Argo CD. Assuming you've installed and configured Argo CD already, you can now log into Argo CD and access the UI. 
+
+First, navigate to +NEW APP on the left-hand side of the UI. Then add the following to create the application:
 
 #### General:
 
@@ -100,4 +128,6 @@ The response should return the application history, including an ID, date, and b
 
 `argocd app history helm-gitops-example <application_history_id>`
 
-Note: these same commands also be done with Helm, without Argo CD and the same steps can be executed for a non-Argo application.
+### Summary
+
+Within this example you have used two different methods to install and deploy an application to a cluster using both Helm and Argo CD.
