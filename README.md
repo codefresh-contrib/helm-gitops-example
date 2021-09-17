@@ -52,11 +52,11 @@ Next, to execute a rollback, you can execute the command:
 
 Access the application by using a port-forward command to a local port:
 
-***needtofixnotessectionwithportinstructions
+`kubectl port-forward svc/helm-gitops-example 5000:80` then point the browser to http://localhost:5000 and view the application.
 
 Congrats! You have now installed and deployed an application using Helm.
 
-#### Part 2: Installing the chart with Argo CD UI
+#### Part 2: Installing the application with the Argo CD UI and deploy locally
 
 Now, that you've installed and deployed the application with Helm, let's review how to do the same with Argo CD. Assuming you've installed and configured Argo CD already, you can now log into Argo CD and access the UI. 
 
