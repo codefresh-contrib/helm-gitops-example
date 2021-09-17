@@ -20,7 +20,7 @@ Once Helm has been set up correctly, add the repo as follows:
 
 Confirm the new release "my-release" has been created. This is done by executing helm list (or helm ls) function which will show you a list of all deployed releases:
 
-`helm list --namespace foo`
+`helm list --namespace default`
 
 If you need to uninstall this release:
 
