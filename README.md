@@ -6,7 +6,7 @@ This is an example application including a Helm chart. We'll explain 2 ways to i
 
 - Access to a Kubernetes cluster
 - Install and configure [Helm](https://helm.sh). Please refer to Helm's [documentation](https://helm.sh/docs) to get started.
-- Install and configure Argo CD. Please refer to Argo's [documentation](https://argoproj.github.io/argo-cd/getting_started/) to get started.
+- Install and configure [Argo CD](https://argo-cd.readthedocs.io/en/stable/). Please refer to Argo's [documentation](https://argoproj.github.io/argo-cd/getting_started/) to get started.
 
 #### Part 1: Installing the application with Helm and deploy locally
 
@@ -52,7 +52,7 @@ Next, to execute a rollback, you can execute the command:
 
 Now, let's access the application by using a port-forward command to a local port:
 
-`kubectl port-forward svc/helm-gitops-example 5000:80` then point the browser to http://localhost:5000 and view the application.
+`kubectl port-forward svc/helm-demo-python  5000:80` then point the browser to http://localhost:5000 and view the application.
 
 Congrats! You have now installed and deployed an application using Helm.
 
