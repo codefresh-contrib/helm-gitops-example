@@ -5,7 +5,7 @@ replicaCount: 1
 
 image:
   pullPolicy: IfNotPresent
-  repository: docker.io/hseligson/helm-gitops-example
+  repository: hseligson/helm-gitops-example
   tag: v1.0.1
 imagePullSecrets: []
 nameOverride: ""
