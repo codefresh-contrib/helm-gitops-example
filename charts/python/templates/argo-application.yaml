@@ -1,0 +1,26 @@
+{{ if eq .Values.isPR "true" }}
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    janitor/expires: {{ now | date_modify "+2.0h" }}
+  name: {{ .Release.Name }}
+  namespace: platform-tools
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: previews
+  source:
+    path: charts/python
+    repoURL: https://github.com/ahilmathew/helm-gitops-example.git
+    targetRevision: HEAD
+  destination:
+    namespace: pr-helm-example-2
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
+{{ end }}
