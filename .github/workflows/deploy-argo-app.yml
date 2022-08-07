@@ -35,3 +35,4 @@ jobs:
          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
        with:
          args: apply -f $GITHUB_WORKSPACE/generated/argocd-app/templates/
+  
