@@ -1,4 +1,4 @@
-name: CI
+name: Deploy Tto AKS
 on:
   push:
     branches:
@@ -14,11 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Dump github context
-        run:   echo "$GITHUB_CONTEXT"
-        shell: bash
-        env:
-         GITHUB_CONTEXT: ${{ toJson(github) }}
+      # - name: Dump github context
+      #   run:   echo "$GITHUB_CONTEXT"
+      #   shell: bash
+      #   env:
+      #    GITHUB_CONTEXT: ${{ toJson(github) }}
 
       - name: Generate manifests to apply
         if: github.ref != 'refs/heads/master'
