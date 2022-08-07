@@ -24,7 +24,8 @@ jobs:
       - name: Generate manifests to apply
         if: github.ref != 'refs/heads/master'
         run: |
-          helm template test -f $GITHUB_WORKSPACE/argocd-app/values.yaml . --output-dir ./generated --set isPR=true,repoUrl=${{ github.event.repository.html_url }},currentBranch=$GITHUB_REF
+          cd $GITHUB_WORKSPACE/argocd-app
+          helm template test -f values.yaml . --output-dir ./generated --set isPR=true,repoUrl=${{ github.event.repository.html_url }},currentBranch=$GITHUB_REF
           
           cat $GITHUB_WORKSPACE/generated/argocd-app/templates/*.yaml
 
