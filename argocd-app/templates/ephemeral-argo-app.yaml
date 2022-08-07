@@ -16,7 +16,7 @@ spec:
   project: previews
   source: 
     path: charts/python
-    repoURL: "https://github.com/ahilmathew/helm-gitops-example.git"
+    repoURL: {{ .Values.repoUrl }}
     targetRevision: HEAD
   syncPolicy: 
     automated: 
