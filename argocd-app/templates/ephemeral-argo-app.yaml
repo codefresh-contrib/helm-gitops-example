@@ -17,7 +17,7 @@ spec:
   source: 
     path: charts/python
     repoURL: {{ .Values.repoUrl }}
-    targetRevision: HEAD
+    targetRevision: {{ .Values.targetBranch }}
   syncPolicy: 
     automated: 
       prune: true
