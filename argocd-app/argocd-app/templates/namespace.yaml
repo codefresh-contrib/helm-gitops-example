@@ -1,0 +1,8 @@
+---
+# Source: argocd-app/templates/namespace.yaml
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    "janitor/expires": "2022-08-08T11:20"
+  name:  pr-argocd-app

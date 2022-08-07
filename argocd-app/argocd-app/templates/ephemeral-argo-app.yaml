@@ -1,0 +1,26 @@
+---
+# Source: argocd-app/templates/ephemeral-argo-app.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    "janitor/expires": "2022-08-08T11:20"
+  name: test-argocd-app
+  finalizers: 
+    - resources-finalizer.argocd.argoproj.io
+  namespace: platform-tools
+spec: 
+  destination: 
+    namespace: pr-argocd-app
+    server: "https://kubernetes.default.svc"
+  project: previews
+  source: 
+    path: charts/python
+    repoURL: "https://github.com/ahilmathew/helm-gitops-example.git"
+    targetRevision: HEAD
+  syncPolicy: 
+    automated: 
+      prune: true
+      selfHeal: true
+    syncOptions: 
+      - CreateNamespace=true
