@@ -29,8 +29,8 @@ jobs:
           cat ./generated/argocd-app/templates/*.yaml
 
       - name: Apply
-       uses: actions-hub/kubectl@master
-       env:
-         KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
-       with:
-         args: apply -f $GITHUB_WORKSPACE/generated/argocd-app/templates/
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
+        with:
+          args: apply -f $GITHUB_WORKSPACE/generated/argocd-app/templates/
