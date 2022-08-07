@@ -29,13 +29,9 @@ jobs:
           
           cat ./generated/argocd-app/templates/*.yaml
 
-
-
-      # Runs a set of commands using the runners shell
-      #- name: Apply
-      #  if: github.ref != 'refs/heads/master'
-      #  uses: actions-hub/kubectl@master
-      #  env:
-      #    KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
-      #  with:
-      #    args: apply -f $GITHUB_WORKSPACE/generated/argocd-app/templates/
+      - name: Apply
+       uses: actions-hub/kubectl@master
+       env:
+         KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
+       with:
+         args: apply -f $GITHUB_WORKSPACE/generated/argocd-app/templates/
