@@ -1,8 +1,11 @@
 name: CI
 on:
   push:
-    branches: [ "main" ]
+    branches:
+    - main
   pull_request:
+    branches:
+    - main
   workflow_dispatch:
 
 jobs:
@@ -11,20 +14,21 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-
-      - name: Generate manifests to apply
-        if: github.ref != 'refs/heads/master'
-        run: |
-          helm template test -f $GITHUB_WORKSPACE/argocd-app/values.yaml . --output-dir ./generated \
-          --set isPR=true,repoUrl={{ github.event.repository.name }},currentBranch=$GITHUB_REF
-          
-          cat $GITHUB_WORKSPACE/generated/argocd-app/templates/*.yaml
-
+      
       - name: Dump github context
         run:   echo "$GITHUB_CONTEXT"
         shell: bash
         env:
          GITHUB_CONTEXT: ${{ toJson(github) }}
+
+      - name: Generate manifests to apply
+        if: github.ref != 'refs/heads/master'
+        run: |
+          helm template test -f $GITHUB_WORKSPACE/argocd-app/values.yaml . --output-dir ./generated --set isPR=true,repoUrl={{ github.event.repository.name }},currentBranch=$GITHUB_REF
+          
+          cat $GITHUB_WORKSPACE/generated/argocd-app/templates/*.yaml
+
+
 
       # Runs a set of commands using the runners shell
       #- name: Apply
