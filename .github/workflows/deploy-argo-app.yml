@@ -24,7 +24,7 @@ jobs:
         if: github.ref != 'refs/heads/master'
         run: |
           cd $GITHUB_WORKSPACE/argocd-app
-          helm template test -f values.yaml . --output-dir ./generated --set isPR=true,repoUrl=${{ github.event.repository.html_url }},currentBranch=$GITHUB_REF
+          helm template test -f values.yaml . --output-dir ./generated --set isPR=true,repoUrl=${{ github.event.repository.html_url }},currentBranch=$GITHUB_REF,branchName=${{ github.ref_name }}
           
           cat ./generated/argocd-app/templates/*.yaml
 
