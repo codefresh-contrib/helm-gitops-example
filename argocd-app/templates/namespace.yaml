@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  {{- if .Values.isPr }}
+  annotations:
+    "janitor/expires": {{ now | date_modify "+2.2h" | date "2006-01-02T15:04" | quote  }}
+  {{- end }}
+  name: {{ if .Values.isPr }} {{ template "prnamespacename" . }}{{ else }}{{ template "namespacename" . }}{{ end }}

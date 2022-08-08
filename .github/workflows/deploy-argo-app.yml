@@ -1,0 +1,31 @@
+name: Deploy To AKS
+
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Generate manifests to apply
+        if: github.ref != 'refs/heads/master'
+        run: |
+          cd $GITHUB_WORKSPACE/argocd-app
+          helm template test -f values.yaml . --output-dir ./generated --set isPr=true,repoUrl=${{ github.event.repository.html_url }},currentBranch=$GITHUB_REF,branchName=${{ github.ref_name }}
+          
+          cat ./generated/argocd-app/templates/*.yaml
+
+      - name: Apply
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
+        with:
+          args: apply -f ./argocd-app/generated/argocd-app/templates/

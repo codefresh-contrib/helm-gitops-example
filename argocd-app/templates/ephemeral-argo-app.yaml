@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  {{- if .Values.isPr }}
+  annotations:
+    "janitor/expires": {{ now | date_modify "+2.0h" | date "2006-01-02T15:04" | quote  }}
+  {{- end }}
+  name: {{ template "releasename" . }}
+  finalizers: 
+    - resources-finalizer.argocd.argoproj.io
+  namespace: platform-tools
+spec: 
+  destination: 
+    namespace: {{ if .Values.isPr }}{{ template "prnamespacename" . }}{{ else }}{{ template "namespacename" . }}{{ end }}
+    server: "https://kubernetes.default.svc"
+  project: previews
+  source: 
+    path: charts/python
+    repoURL: {{ .Values.repoUrl }}
+    targetRevision: {{ .Values.currentBranch }}
+  syncPolicy: 
+    automated: 
+      prune: true
+      selfHeal: true
