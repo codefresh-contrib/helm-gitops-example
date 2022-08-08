@@ -1,4 +1,4 @@
-name: Deploy Tto AKS
+name: Deploy To AKS
 on:
   push:
     branches:
