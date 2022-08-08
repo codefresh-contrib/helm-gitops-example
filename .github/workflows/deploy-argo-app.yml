@@ -1,4 +1,5 @@
 name: Deploy To AKS
+
 on:
   push:
     branches:
@@ -14,14 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      # - name: Dump github context
-      #   run:   echo "$GITHUB_CONTEXT"
-      #   shell: bash
-      #   env:
-      #    GITHUB_CONTEXT: ${{ toJson(github) }}
-
       - name: Generate manifests to apply
-        if: github.ref != 'refs/heads/main'
+        if: github.ref != 'refs/heads/master'
         run: |
           cd $GITHUB_WORKSPACE/argocd-app
           helm template test -f values.yaml . --output-dir ./generated --set isPr=true,repoUrl=${{ github.event.repository.html_url }},currentBranch=$GITHUB_REF,branchName=${{ github.ref_name }}
