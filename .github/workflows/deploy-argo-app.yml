@@ -17,11 +17,15 @@ jobs:
 
       - name: Generate manifests to apply
         if: github.ref != 'refs/heads/main'
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBECONFIG }}
         run: |
           cd $GITHUB_WORKSPACE/argocd-app
-          helm template test -f values.yaml . --output-dir ./generated --set isPr=true,repoUrl=${{ github.event.repository.html_url }},currentBranch=$GITHUB_REF,branchName=${{ github.ref_name }}
-          
-          cat ./generated/argocd-app/templates/*.yaml
+          echo $KUBE_CONFIG | base64 -d > kubeconfig.yaml
+          export KUBECONFIG=kubeconfig.yaml
+          helm upgrade --install test -f values.yaml . --set isPr=true,repoUrl=${{ github.event.repository.html_url }},currentBranch=$GITHUB_REF,branchName=${{ github.ref_name }}
+         # helm template test -f values.yaml . --output-dir ./generated --set isPr=true,repoUrl=${{ github.event.repository.html_url }},currentBranch=$GITHUB_REF,branchName=${{ github.ref_name }}
+         # cat ./generated/argocd-app/templates/*.yaml
 
       - name: Apply
         uses: actions-hub/kubectl@master
